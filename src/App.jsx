@@ -1,8 +1,6 @@
 import { useMemo, useState } from 'react'
 import {
-  Award,
   Bot,
-  ChevronRight,
   Flame,
   GlassWater,
   Heart,
@@ -11,7 +9,6 @@ import {
   Martini,
   Search,
   Sparkles,
-  Sprout,
   Wine,
 } from 'lucide-react'
 import './App.css'
@@ -19,80 +16,77 @@ import './App.css'
 const drinks = [
   {
     id: 'limao',
-    name: 'Caipirinha de limao',
-    fruit: 'Limao taiti',
-    vibe: 'Classica, azedinha e muito refrescante',
-    profile: ['citrica', 'leve', 'tradicional'],
+    name: 'Caipirinha de limão',
+    shortName: 'Limão',
+    fruit: 'Limão taiti',
+    vibe: 'Clássica, azedinha e muito refrescante.',
+    profile: ['cítrica', 'leve', 'tradicional'],
     sweetness: 'Baixa',
     intensity: 3,
-    bestFor: 'Quem quer abrir o dia com a pedida brasileira essencial.',
-    ingredients: ['limao taiti macerado', 'acucar', 'gelo quebrado', 'cachaca ou vodka'],
-    garnish: 'Roda fina de limao e borda perfumada com a casca.',
+    bestFor: 'é a escolha mais clássica, refrescante e fácil de agradar.',
+    ingredients: ['limão taiti macerado', 'açúcar', 'gelo', 'cachaça ou vodka'],
+    garnish: 'Finalizada com fatia de limão.',
     color: '#48a84c',
     photo:
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Caipirinha%20with%20lime.jpg?width=1200',
-    credit: 'rawpixel.com / Wikimedia Commons',
+      'https://static.wixstatic.com/media/294104_9b28e351eeff4e92b00d3d2f27a99291~mv2.jpg/v1/fill/w_970,h_647,al_c,q_85/294104_9b28e351eeff4e92b00d3d2f27a99291~mv2.jpg',
   },
   {
     id: 'maracuja',
-    name: 'Caipirinha de maracuja',
-    fruit: 'Maracuja',
-    vibe: 'Tropical, perfumada e doce na medida',
-    profile: ['tropical', 'doce', 'aromatica'],
-    sweetness: 'Media',
+    name: 'Caipirinha de maracujá',
+    shortName: 'Maracujá',
+    fruit: 'Maracujá',
+    vibe: 'Tropical, perfumada e doce na medida.',
+    profile: ['tropical', 'doce', 'aromática'],
+    sweetness: 'Média',
     intensity: 2,
-    bestFor: 'Quem gosta de fruta marcante e textura com sementes.',
-    ingredients: ['polpa de maracuja', 'acucar', 'gelo', 'cachaca ou vodka'],
-    garnish: 'Meia casca de maracuja como bowl natural.',
+    bestFor: 'é uma opção tropical, aromática e mais suave no paladar.',
+    ingredients: ['polpa de maracujá', 'açúcar', 'gelo', 'cachaça ou vodka'],
+    garnish: 'Servida com polpa e sementes de maracujá.',
     color: '#f2a900',
-    photo:
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Passion%20fruits%20-%20whole%20and%20halved.jpg?width=1200',
-    credit: 'Muhammad Mahdi Karim / Wikimedia Commons',
+    photo: 'https://img.cdndsgni.com/preview/10024207.jpg',
   },
   {
     id: 'tres-limoes',
-    name: 'Caipirinha 3 limoes',
+    name: 'Caipirinha 3 limões',
+    shortName: '3 Limões',
     fruit: 'Siciliano, cravo e taiti',
-    vibe: 'Complexa, elegante e super aromatica',
-    profile: ['citrica', 'intensa', 'especial'],
+    vibe: 'Cítrica, aromática e mais marcante.',
+    profile: ['cítrica', 'intensa', 'especial'],
     sweetness: 'Baixa',
     intensity: 4,
-    bestFor: 'Quem quer algo diferente sem sair do universo citrico.',
-    ingredients: ['limao siciliano', 'limao cravo', 'limao taiti', 'acucar', 'gelo', 'cachaca ou vodka'],
-    garnish: 'Mix de zests para levantar o perfume antes do primeiro gole.',
+    bestFor: 'é para quem quer uma caipirinha diferente, cítrica e com mais personalidade.',
+    ingredients: ['limão siciliano', 'limão cravo', 'limão taiti', 'açúcar', 'gelo', 'cachaça ou vodka'],
+    garnish: 'Finalizada com cascas dos limões para mais aroma.',
     color: '#d7d947',
-    photo:
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Caipirinha%20picture.jpg?width=1200',
-    credit: 'Ralf Roletschek / Wikimedia Commons',
+    photo: 'https://doseextraoficial.com.br/wp-content/uploads/2023/06/Caipirinha-de-tres-limoes.jpg',
   },
   {
     id: 'mexerica',
     name: 'Caipirinha de mexerica',
+    shortName: 'Mexerica',
     fruit: 'Mexerica',
-    vibe: 'Solar, suculenta e levemente adocicada',
+    vibe: 'Frutada, suculenta e levemente adocicada.',
     profile: ['doce', 'frutada', 'leve'],
-    sweetness: 'Media',
+    sweetness: 'Média',
     intensity: 2,
-    bestFor: 'Quem prefere um drink macio, cheiroso e facil de amar.',
-    ingredients: ['gomos de mexerica', 'toque de limao', 'acucar', 'gelo', 'cachaca ou vodka'],
-    garnish: 'Gomo fresco e folha de hortela.',
+    bestFor: 'é macia, cheirosa e ótima para quem prefere um drink frutado.',
+    ingredients: ['gomos de mexerica', 'toque de limão', 'açúcar', 'gelo', 'cachaça ou vodka'],
+    garnish: 'Finalizada com gomo fresco de mexerica.',
     color: '#f08a24',
-    photo:
-      'https://commons.wikimedia.org/wiki/Special:FilePath/Caipirinha%20de%20tangerina%20com%20pimenta%20dedo-de-mo%C3%A7a%20%288468213287%29.jpg?width=1200',
-    credit: 'Silveira Neto / Wikimedia Commons',
+    photo: 'https://receitacerta.blog.br/wp-content/uploads/2025/09/Capirinha-de-Tangerina-768x512.webp',
   },
 ]
 
 const preferenceOptions = [
-  { id: 'refrescante', label: 'Refrescante', profiles: ['leve', 'citrica'] },
+  { id: 'refrescante', label: 'Refrescante', profiles: ['leve', 'cítrica'] },
   { id: 'doce', label: 'Mais doce', profiles: ['doce', 'frutada'] },
   { id: 'diferente', label: 'Diferente', profiles: ['especial', 'intensa'] },
-  { id: 'tropical', label: 'Tropical', profiles: ['tropical', 'aromatica'] },
+  { id: 'tropical', label: 'Tropical', profiles: ['tropical', 'aromática'] },
 ]
 
 const baseOptions = [
-  { id: 'cachaca', label: 'Cachaca', note: 'mais brasileira, vegetal e cheia de personalidade' },
-  { id: 'vodka', label: 'Vodka', note: 'mais neutra, limpa e facil para todos os paladares' },
+  { id: 'cachaca', label: 'Cachaça', note: 'mais brasileira, intensa e cheia de personalidade' },
+  { id: 'vodka', label: 'Vodka', note: 'mais neutra, suave e fácil de beber' },
 ]
 
 function pickRecommendation(preference, base, mood) {
@@ -124,15 +118,12 @@ function App() {
     [preference, base, mood],
   )
 
-  const filteredDrinks = drinks.filter((drink) => {
-    const matchesQuery = `${drink.name} ${drink.fruit} ${drink.vibe}`
-      .toLowerCase()
-      .includes(query.toLowerCase())
-    return matchesQuery
-  })
+  const filteredDrinks = drinks.filter((drink) =>
+    `${drink.name} ${drink.fruit} ${drink.vibe}`.toLowerCase().includes(query.toLowerCase()),
+  )
 
   const menuBaseLabel =
-    activeBase === 'todas' ? 'cachaca ou vodka' : activeBase === 'cachaca' ? 'cachaca' : 'vodka'
+    activeBase === 'todas' ? 'cachaça ou vodka' : activeBase === 'cachaca' ? 'cachaça' : 'vodka'
 
   return (
     <main className="app-shell">
@@ -143,73 +134,175 @@ function App() {
           </span>
           <span>Caipirinha Days</span>
         </a>
-        <nav aria-label="Navegacao principal">
-          <a href="#menu">Drinks</a>
-          <a href="#ia">IA</a>
-          <a href="#bar">Bar</a>
+        <nav aria-label="Navegação principal">
+          <a href="#menu">Opções</a>
+          <a href="#ia">Me ajude</a>
         </nav>
       </header>
 
       <section className="hero-section" aria-labelledby="page-title">
         <div className="hero-copy">
-          <p className="eyebrow">Cardapio digital interativo</p>
+          <p className="eyebrow">Escolha sua caipirinha</p>
           <h1 id="page-title">Caipirinha Days</h1>
           <p className="hero-text">
-            Quatro sabores de caipirinha, duas bases para escolher e um assistente que entende o
-            clima do seu brinde.
+            Veja os sabores da festa e escolha sua base: todas podem ser feitas com cachaça ou vodka.
           </p>
           <div className="hero-actions">
-            <a className="primary-action" href="#ia">
-              <Bot size={18} aria-hidden="true" />
-              Quero uma indicacao
+            <a className="primary-action" href="#menu">
+              <GlassWater size={18} aria-hidden="true" />
+              Ver opções
             </a>
-            <a className="secondary-action" href="#menu">
-              Ver cardapio
-              <ChevronRight size={18} aria-hidden="true" />
+            <a className="secondary-action" href="#ia">
+              <Bot size={18} aria-hidden="true" />
+              Me ajude a escolher
             </a>
           </div>
         </div>
-        <div className="hero-photo">
-          <img src={drinks[0].photo} alt="Caipirinha de limao com gelo e fatias de limao" />
-          <div className="hero-badge">
-            <Award size={18} aria-hidden="true" />
-            Feitas com cachaca ou vodka
-          </div>
+
+        <div className="hero-menu" aria-label="Sabores disponíveis">
+          {drinks.map((drink) => (
+            <a className="hero-drink" href={`#${drink.id}`} key={drink.id}>
+              <img src={drink.photo} alt={drink.name} />
+              <span>{drink.shortName}</span>
+            </a>
+          ))}
         </div>
       </section>
 
-      <section className="quick-panel" aria-label="Destaques do cardapio">
+      <section className="quick-panel" aria-label="Resumo das opções">
         <div>
           <GlassWater size={20} aria-hidden="true" />
           <strong>4 sabores</strong>
-          <span>limao, maracuja, 3 limoes e mexerica</span>
+          <span>limão, maracujá, 3 limões e mexerica</span>
         </div>
         <div>
           <Wine size={20} aria-hidden="true" />
           <strong>2 bases</strong>
-          <span>cachaca ou vodka em qualquer drink</span>
+          <span>cachaça ou vodka em qualquer opção</span>
         </div>
         <div>
           <Sparkles size={20} aria-hidden="true" />
-          <strong>IA da indecisao</strong>
-          <span>recomendacao por humor e paladar</span>
+          <strong>Não sabe qual pedir?</strong>
+          <span>responda rapidinho e receba uma sugestão</span>
+        </div>
+      </section>
+
+      <section className="menu-section" id="menu" aria-labelledby="menu-title">
+        <div className="section-heading">
+          <p className="eyebrow">Opções da festa</p>
+          <h2 id="menu-title">Escolha seu sabor</h2>
+          <p>Clique no coração para marcar sua preferida. Depois é só pedir no bar.</p>
+        </div>
+
+        <div className="toolbar" aria-label="Ferramentas do cardápio">
+          <label className="search-box">
+            <Search size={18} aria-hidden="true" />
+            <span className="sr-only">Buscar drink</span>
+            <input
+              type="search"
+              placeholder="Buscar por sabor"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+          </label>
+          <div className="base-filter" aria-label="Escolha de base">
+            <button
+              type="button"
+              className={activeBase === 'todas' ? 'active' : ''}
+              onClick={() => setActiveBase('todas')}
+            >
+              Todas
+            </button>
+            <button
+              type="button"
+              className={activeBase === 'cachaca' ? 'active' : ''}
+              onClick={() => setActiveBase('cachaca')}
+            >
+              Cachaça
+            </button>
+            <button
+              type="button"
+              className={activeBase === 'vodka' ? 'active' : ''}
+              onClick={() => setActiveBase('vodka')}
+            >
+              Vodka
+            </button>
+          </div>
+        </div>
+
+        <p className="menu-mode">
+          Pedido com <strong>{menuBaseLabel}</strong>.
+        </p>
+
+        <div className="drink-grid">
+          {filteredDrinks.map((drink) => (
+            <article
+              className="drink-card"
+              id={drink.id}
+              key={drink.id}
+              style={{ '--drink-color': drink.color }}
+            >
+              <button
+                className={favorite === drink.id ? 'favorite active' : 'favorite'}
+                type="button"
+                aria-label={`Favoritar ${drink.name}`}
+                onClick={() => setFavorite(drink.id)}
+              >
+                <Heart size={18} aria-hidden="true" />
+              </button>
+              <div className="drink-photo">
+                <img src={drink.photo} alt={drink.name} />
+                <div className="photo-title">
+                  <span>{drink.shortName}</span>
+                  <strong>{drink.name}</strong>
+                </div>
+              </div>
+              <div className="drink-content">
+                <span className="fruit-tag">{drink.fruit}</span>
+                <h3>{drink.name}</h3>
+                <p>{drink.vibe}</p>
+                <div className="meta-row">
+                  <span>
+                    <IceCreamBowl size={16} aria-hidden="true" />
+                    Doçura {drink.sweetness}
+                  </span>
+                  <span>
+                    <Flame size={16} aria-hidden="true" />
+                    Força {drink.intensity}/5
+                  </span>
+                </div>
+                <div className="ingredients">
+                  <strong>O que vai</strong>
+                  <ul>
+                    {drink.ingredients.map((ingredient) => (
+                      <li key={ingredient}>{ingredient}</li>
+                    ))}
+                  </ul>
+                </div>
+                <p className="base-note">
+                  Pode pedir com <strong>{menuBaseLabel}</strong>.
+                </p>
+                <p className="garnish">
+                  <Leaf size={16} aria-hidden="true" />
+                  {drink.garnish}
+                </p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
       <section className="assistant-section" id="ia" aria-labelledby="assistant-title">
         <div className="section-heading">
-          <p className="eyebrow">Para quem ainda nao sabe</p>
-          <h2 id="assistant-title">IA do copo perfeito</h2>
-          <p>
-            Escolha o tipo de vontade, a base e a intensidade. A recomendacao aparece na hora com a
-            melhor combinacao.
-          </p>
+          <p className="eyebrow">Está em dúvida?</p>
+          <h2 id="assistant-title">Eu te ajudo a escolher</h2>
+          <p>Responda três coisas rápidas e veja qual caipirinha combina com você agora.</p>
         </div>
 
         <div className="assistant-grid">
           <div className="selector-area">
             <div className="control-group">
-              <span>O que voce quer sentir?</span>
+              <span>O que você quer?</span>
               <div className="chip-row">
                 {preferenceOptions.map((option) => (
                   <button
@@ -276,145 +369,20 @@ function App() {
             <div className="rec-copy">
               <span className="ai-label">
                 <Bot size={16} aria-hidden="true" />
-                Indicacao da IA
+                Sugestão
               </span>
               <h3>{recommendation.name}</h3>
               <p>
-                Peca com {base === 'cachaca' ? 'cachaca' : 'vodka'}: {recommendation.bestFor}
+                Peça com {base === 'cachaca' ? 'cachaça' : 'vodka'}: {recommendation.bestFor}
               </p>
               <button type="button" onClick={() => setFavorite(recommendation.id)}>
                 <Heart size={17} aria-hidden="true" />
-                Marcar como favorita
+                Gostei dessa
               </button>
             </div>
           </article>
         </div>
       </section>
-
-      <section className="menu-section" id="menu" aria-labelledby="menu-title">
-        <div className="section-heading">
-          <p className="eyebrow">Menu principal</p>
-          <h2 id="menu-title">Escolha seu sabor</h2>
-          <p>Cada drink pode ser feito com cachaca ou vodka, mantendo fruta fresca, gelo e acucar.</p>
-        </div>
-
-        <div className="toolbar" aria-label="Ferramentas do cardapio">
-          <label className="search-box">
-            <Search size={18} aria-hidden="true" />
-            <span className="sr-only">Buscar drink</span>
-            <input
-              type="search"
-              placeholder="Buscar por sabor"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-            />
-          </label>
-          <div className="base-filter" aria-label="Filtro de base">
-            <button
-              type="button"
-              className={activeBase === 'todas' ? 'active' : ''}
-              onClick={() => setActiveBase('todas')}
-            >
-              Todas
-            </button>
-            <button
-              type="button"
-              className={activeBase === 'cachaca' ? 'active' : ''}
-              onClick={() => setActiveBase('cachaca')}
-            >
-              Cachaca
-            </button>
-            <button
-              type="button"
-              className={activeBase === 'vodka' ? 'active' : ''}
-              onClick={() => setActiveBase('vodka')}
-            >
-              Vodka
-            </button>
-          </div>
-        </div>
-
-        <p className="menu-mode">
-          Mostrando o cardapio no modo <strong>{menuBaseLabel}</strong>.
-        </p>
-
-        <div className="drink-grid">
-          {filteredDrinks.map((drink) => (
-            <article className="drink-card" key={drink.id} style={{ '--drink-color': drink.color }}>
-              <button
-                className={favorite === drink.id ? 'favorite active' : 'favorite'}
-                type="button"
-                aria-label={`Favoritar ${drink.name}`}
-                onClick={() => setFavorite(drink.id)}
-              >
-                <Heart size={18} aria-hidden="true" />
-              </button>
-              <img src={drink.photo} alt={drink.name} />
-              <div className="drink-content">
-                <span className="fruit-tag">{drink.fruit}</span>
-                <h3>{drink.name}</h3>
-                <p>{drink.vibe}</p>
-                <div className="meta-row">
-                  <span>
-                    <IceCreamBowl size={16} aria-hidden="true" />
-                    Docura {drink.sweetness}
-                  </span>
-                  <span>
-                    <Flame size={16} aria-hidden="true" />
-                    Forca {drink.intensity}/5
-                  </span>
-                </div>
-                <div className="ingredients">
-                  <strong>Vai no copo</strong>
-                  <ul>
-                    {drink.ingredients.map((ingredient) => (
-                      <li key={ingredient}>{ingredient}</li>
-                    ))}
-                  </ul>
-                </div>
-                <p className="base-note">
-                  Base indicada agora: <strong>{menuBaseLabel}</strong>
-                </p>
-                <p className="garnish">
-                  <Leaf size={16} aria-hidden="true" />
-                  {drink.garnish}
-                </p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="bar-section" id="bar" aria-labelledby="bar-title">
-        <div className="section-heading">
-          <p className="eyebrow">Ideias extras</p>
-          <h2 id="bar-title">Monte o pedido perfeito</h2>
-        </div>
-        <div className="bar-grid">
-          <div>
-            <Sprout size={22} aria-hidden="true" />
-            <h3>Assinatura da casa</h3>
-            <p>Finalize qualquer caipirinha com hortela batida na palma para um aroma fresco.</p>
-          </div>
-          <div>
-            <GlassWater size={22} aria-hidden="true" />
-            <h3>Combo degustacao</h3>
-            <p>Sirva mini copos dos quatro sabores para grupos que querem provar tudo.</p>
-          </div>
-          <div>
-            <Martini size={22} aria-hidden="true" />
-            <h3>Versao sem pressa</h3>
-            <p>Use gelo grande quando quiser um drink mais longo, menos diluido e mais bonito.</p>
-          </div>
-        </div>
-      </section>
-
-      <footer>
-        <span>Caipirinha Days</span>
-        <span>
-          Fotos via Wikimedia Commons: {drinks.map((drink) => drink.credit).join(' | ')}
-        </span>
-      </footer>
     </main>
   )
 }
