@@ -28,7 +28,7 @@ const drinks = [
     garnish: 'Finalizada com fatia de limão.',
     color: '#48a84c',
     photo:
-      'https://static.wixstatic.com/media/294104_9b28e351eeff4e92b00d3d2f27a99291~mv2.jpg/v1/fill/w_970,h_647,al_c,q_85/294104_9b28e351eeff4e92b00d3d2f27a99291~mv2.jpg',
+      'https://receitasbaratas.com.br/wp-content/uploads/2025/01/Receita-de-Caipirinha-de-Limao-no-Liquidificador.jpg',
   },
   {
     id: 'maracuja',
