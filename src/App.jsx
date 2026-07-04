@@ -223,7 +223,7 @@ function App() {
         </a>
         <nav aria-label="Navegação principal">
           <a href="#menu">Opções</a>
-          <a href="#ia">IA</a>
+          <a href="#ia">Me ajude</a>
         </nav>
       </header>
 
@@ -241,7 +241,7 @@ function App() {
             </a>
             <a className="secondary-action" href="#ia">
               <Bot size={18} aria-hidden="true" />
-              IA recomenda
+              Me ajude a escolher
             </a>
           </div>
         </div>
@@ -269,8 +269,8 @@ function App() {
         </div>
         <div>
           <Sparkles size={20} aria-hidden="true" />
-          <strong>IA da festa</strong>
-          <span>sugere o drink e mostra como fazer</span>
+          <strong>Não sabe qual pedir?</strong>
+          <span>veja uma sugestão e outras opções da festa</span>
         </div>
       </section>
 
@@ -381,9 +381,9 @@ function App() {
 
       <section className="assistant-section" id="ia" aria-labelledby="assistant-title">
         <div className="section-heading">
-          <p className="eyebrow">IA da festa</p>
-          <h2 id="assistant-title">Descubra seu drink</h2>
-          <p>A IA cruza seu paladar, sua base preferida e a intensidade para sugerir um drink e o preparo.</p>
+          <p className="eyebrow">Está em dúvida?</p>
+          <h2 id="assistant-title">Eu te ajudo a escolher</h2>
+          <p>Responda rapidinho e veja uma sugestão de drink, outras opções da festa e como fazer.</p>
         </div>
 
         <div className="assistant-grid">
@@ -391,7 +391,7 @@ function App() {
             <div className="ai-status">
               <Bot size={20} aria-hidden="true" />
               <div>
-                <strong>Analisando seu paladar</strong>
+                <strong>Sua escolha</strong>
                 <span>{selectedPreference.label} + {baseLabel} + {selectedMode.hint} + {selectedFocus.label}</span>
               </div>
             </div>
@@ -447,8 +447,8 @@ function App() {
             </div>
 
             <div className="control-group">
-              <span>4. O que a IA deve olhar?</span>
-              <div className="ai-mode-grid" role="group" aria-label="Tipo de análise da IA">
+              <span>4. O que você quer ver?</span>
+              <div className="ai-mode-grid" role="group" aria-label="Tipo de sugestão">
                 {aiFocusOptions.map((option) => (
                   <button
                     type="button"
@@ -471,7 +471,7 @@ function App() {
             <div className="rec-copy">
               <span className="ai-label">
                 <Sparkles size={16} aria-hidden="true" />
-                Recomendação da IA
+                Sugestão
               </span>
               <h3>{recommendation.name}</h3>
               <p>
@@ -486,7 +486,7 @@ function App() {
               </div>
 
               <div className="ai-options">
-                <strong>Outras possibilidades analisadas</strong>
+                <strong>Outras opções para você</strong>
                 {possibilities.map((option, index) => (
                   <button
                     type="button"
