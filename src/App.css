@@ -75,7 +75,7 @@
   grid-template-columns: minmax(0, 1.02fr) minmax(300px, 0.98fr);
   gap: clamp(24px, 5vw, 64px);
   align-items: center;
-  padding: clamp(34px, 7vw, 84px) clamp(18px, 5vw, 72px) 28px;
+  padding: clamp(16px, 4vw, 44px) clamp(18px, 5vw, 72px) 28px;
 }
 
 .hero-copy {
@@ -694,7 +694,7 @@ footer span:first-child {
   }
 
   .hero-section {
-    padding-top: 24px;
+    padding-top: 12px;
   }
 
   .hero-actions a,

@@ -1,20 +1,20 @@
 # Caipirinha Days
 
-Cardapio digital mobile-first para apresentar caipirinhas, ingredientes e uma recomendacao interativa para pessoas indecisas.
+Menu mobile-first para convidados escolherem caipirinhas da festa com clareza.
 
 ## Recursos
 
-- Vitrine com fotos, ingredientes, perfil de sabor, docura e intensidade.
-- Todas as caipirinhas podem ser pedidas com cachaca ou vodka.
-- Assistente de recomendacao por preferencia, base e intensidade.
+- Vitrine com fotos, ingredientes, perfil de sabor, doçura e intensidade.
+- Todas as caipirinhas podem ser pedidas com cachaça ou vodka.
+- Assistente de recomendação por preferência, base e intensidade.
 - Busca por sabor e marcador de favorito.
 - Layout responsivo para smartphone.
 
 ## Drinks
 
-- Caipirinha de limao
-- Caipirinha de maracuja
-- Caipirinha 3 limoes
+- Caipirinha de limão
+- Caipirinha de maracujá
+- Caipirinha 3 limões
 - Caipirinha de mexerica
 
 ## Rodando localmente
