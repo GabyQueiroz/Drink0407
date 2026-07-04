@@ -432,7 +432,8 @@ h3 {
 }
 
 .ai-reason,
-.recipe-box {
+.recipe-box,
+.ai-options {
   margin-bottom: 18px;
   padding: 14px;
   background: rgba(239, 247, 231, 0.82);
@@ -441,7 +442,8 @@ h3 {
 }
 
 .ai-reason strong,
-.recipe-box strong {
+.recipe-box strong,
+.ai-options > strong {
   display: block;
   margin-bottom: 8px;
   color: #13251a;
@@ -457,6 +459,66 @@ h3 {
   margin: 0;
   padding-left: 20px;
   color: #405d48;
+}
+
+.ai-options {
+  display: grid;
+  gap: 8px;
+}
+
+.ai-option {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  color: #213b2a;
+  text-align: left;
+  background: #ffffff;
+  border: 1px solid rgba(34, 71, 47, 0.12);
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.ai-option > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: #ffffff;
+  font-weight: 900;
+  background: #0c6b52;
+  border-radius: 999px;
+}
+
+.ai-option strong,
+.ai-option small {
+  display: block;
+}
+
+.ai-option strong {
+  color: #13251a;
+  line-height: 1.12;
+}
+
+.ai-option small {
+  margin-top: 4px;
+  color: #526a59;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.saved-suggestion {
+  margin: 0 0 14px;
+  padding: 11px 12px;
+  color: #274532;
+  background: #fff8dc;
+  border-radius: 14px;
+}
+
+.saved-suggestion strong {
+  color: #13251a;
 }
 
 .recommendation button {

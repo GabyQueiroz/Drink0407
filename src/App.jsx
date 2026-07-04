@@ -119,6 +119,12 @@ const aiModes = [
   { id: 'marcante', label: 'Quero marcante', hint: 'mais presença no copo' },
 ]
 
+const aiFocusOptions = [
+  { id: 'festa', label: 'Opções da festa', hint: 'analisa tudo que tem no bar' },
+  { id: 'curiosidade', label: 'Curiosidade', hint: 'traz dica e detalhe do sabor' },
+  { id: 'preparo', label: 'Como fazer', hint: 'prioriza dica de preparo' },
+]
+
 function pickRecommendation(preference, base, mood) {
   const scores = drinks.map((drink) => {
     const selected = preferenceOptions.find((item) => item.id === preference)
@@ -135,12 +141,54 @@ function pickRecommendation(preference, base, mood) {
   return scores.sort((a, b) => b.score - a.score)[0].drink
 }
 
+function buildPossibilities(preference, mood, focus) {
+  const selected = preferenceOptions.find((item) => item.id === preference)
+  const variants = drinks.flatMap((drink) =>
+    ['cachaca', 'vodka'].map((variantBase) => {
+      const profileScore = selected.profiles.filter((profile) => drink.profile.includes(profile)).length * 4
+      const moodScore =
+        mood === 'leve' ? Math.max(0, 5 - drink.intensity) : mood === 'marcante' ? drink.intensity + 1 : 3
+      const focusScore =
+        focus === 'curiosidade' && drink.id === 'tres-limoes'
+          ? 3
+          : focus === 'preparo' && drink.id === 'limao'
+            ? 2
+            : focus === 'festa'
+              ? 1
+              : 0
+      const baseScore = variantBase === 'vodka' && drink.intensity <= 2 ? 1 : variantBase === 'cachaca' ? 1 : 0
+      const score = profileScore + moodScore + focusScore + baseScore
+
+      return {
+        id: `${drink.id}-${variantBase}`,
+        drink,
+        base: variantBase === 'cachaca' ? 'cachaça' : 'vodka',
+        score,
+        reason:
+          variantBase === 'cachaca'
+            ? 'fica mais brasileiro e com mais presença'
+            : 'fica mais suave e fácil de beber',
+        tip:
+          focus === 'preparo'
+            ? drink.method[1]
+            : focus === 'curiosidade'
+              ? `${drink.shortName} combina com quem quer ${drink.vibe.toLowerCase()}`
+              : `Boa pedida para pedir no bar com ${variantBase === 'cachaca' ? 'cachaça' : 'vodka'}.`,
+      }
+    }),
+  )
+
+  return variants.sort((a, b) => b.score - a.score).slice(0, 5)
+}
+
 function App() {
   const [activeBase, setActiveBase] = useState('todas')
   const [preference, setPreference] = useState('refrescante')
   const [base, setBase] = useState('cachaca')
   const [mood, setMood] = useState('leve')
+  const [aiFocus, setAiFocus] = useState('festa')
   const [favorite, setFavorite] = useState('mexerica')
+  const [savedSuggestion, setSavedSuggestion] = useState('')
   const [query, setQuery] = useState('')
 
   const recommendation = useMemo(
@@ -150,7 +198,12 @@ function App() {
 
   const selectedPreference = preferenceOptions.find((option) => option.id === preference)
   const selectedMode = aiModes.find((option) => option.id === mood)
+  const selectedFocus = aiFocusOptions.find((option) => option.id === aiFocus)
   const baseLabel = base === 'cachaca' ? 'cachaça' : 'vodka'
+  const possibilities = useMemo(
+    () => buildPossibilities(preference, mood, aiFocus),
+    [preference, mood, aiFocus],
+  )
 
   const filteredDrinks = drinks.filter((drink) =>
     `${drink.name} ${drink.fruit} ${drink.vibe}`.toLowerCase().includes(query.toLowerCase()),
@@ -339,7 +392,7 @@ function App() {
               <Bot size={20} aria-hidden="true" />
               <div>
                 <strong>Analisando seu paladar</strong>
-                <span>{selectedPreference.label} + {baseLabel} + {selectedMode.hint}</span>
+                <span>{selectedPreference.label} + {baseLabel} + {selectedMode.hint} + {selectedFocus.label}</span>
               </div>
             </div>
 
@@ -392,6 +445,23 @@ function App() {
                 ))}
               </div>
             </div>
+
+            <div className="control-group">
+              <span>4. O que a IA deve olhar?</span>
+              <div className="ai-mode-grid" role="group" aria-label="Tipo de análise da IA">
+                {aiFocusOptions.map((option) => (
+                  <button
+                    type="button"
+                    className={aiFocus === option.id ? 'mood active' : 'mood'}
+                    onClick={() => setAiFocus(option.id)}
+                    key={option.id}
+                  >
+                    <strong>{option.label}</strong>
+                    <small>{option.hint}</small>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
 
           <article className="recommendation ai-result" style={{ '--drink-color': recommendation.color }}>
@@ -411,8 +481,29 @@ function App() {
               <div className="ai-reason">
                 <strong>Por que combina?</strong>
                 <span>
-                  Você escolheu um perfil {selectedPreference.label.toLowerCase()} e um drink {selectedMode.hint}.
+                  Você escolheu um perfil {selectedPreference.label.toLowerCase()}, {selectedMode.hint} e pediu uma análise de {selectedFocus.label.toLowerCase()}.
                 </span>
+              </div>
+
+              <div className="ai-options">
+                <strong>Outras possibilidades analisadas</strong>
+                {possibilities.map((option, index) => (
+                  <button
+                    type="button"
+                    className="ai-option"
+                    key={option.id}
+                    onClick={() => {
+                      setFavorite(option.drink.id)
+                      setSavedSuggestion(`${option.drink.name} com ${option.base}`)
+                    }}
+                  >
+                    <span>{index + 1}</span>
+                    <div>
+                      <strong>{option.drink.name} com {option.base}</strong>
+                      <small>{option.reason}. {option.tip}</small>
+                    </div>
+                  </button>
+                ))}
               </div>
 
               <div className="recipe-box">
@@ -424,7 +515,19 @@ function App() {
                 </ol>
               </div>
 
-              <button type="button" onClick={() => setFavorite(recommendation.id)}>
+              {savedSuggestion && (
+                <p className="saved-suggestion">
+                  Sugestão salva: <strong>{savedSuggestion}</strong>
+                </p>
+              )}
+
+              <button
+                type="button"
+                onClick={() => {
+                  setFavorite(recommendation.id)
+                  setSavedSuggestion(`${recommendation.name} com ${baseLabel}`)
+                }}
+              >
                 <Heart size={17} aria-hidden="true" />
                 Gostei dessa sugestão
               </button>
