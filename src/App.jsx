@@ -26,6 +26,12 @@ const drinks = [
     bestFor: 'é a escolha mais clássica, refrescante e fácil de agradar.',
     ingredients: ['limão taiti macerado', 'açúcar', 'gelo', 'cachaça ou vodka'],
     garnish: 'Finalizada com fatia de limão.',
+    method: [
+      'Corte o limão em pedaços e tire a parte branca do meio.',
+      'Macere com açúcar direto no copo, sem esmagar demais a casca.',
+      'Complete com bastante gelo e finalize com cachaça ou vodka.',
+      'Misture bem e sirva na hora.',
+    ],
     color: '#48a84c',
     photo:
       'https://receitasbaratas.com.br/wp-content/uploads/2025/01/Receita-de-Caipirinha-de-Limao-no-Liquidificador.jpg',
@@ -42,6 +48,12 @@ const drinks = [
     bestFor: 'é uma opção tropical, aromática e mais suave no paladar.',
     ingredients: ['polpa de maracujá', 'açúcar', 'gelo', 'cachaça ou vodka'],
     garnish: 'Servida com polpa e sementes de maracujá.',
+    method: [
+      'Coloque a polpa de maracujá no copo com açúcar.',
+      'Misture de leve para soltar o perfume da fruta.',
+      'Adicione gelo até completar o copo.',
+      'Finalize com cachaça ou vodka e mexa antes de servir.',
+    ],
     color: '#f2a900',
     photo: 'https://img.cdndsgni.com/preview/10024207.jpg',
   },
@@ -57,6 +69,12 @@ const drinks = [
     bestFor: 'é para quem quer uma caipirinha diferente, cítrica e com mais personalidade.',
     ingredients: ['limão siciliano', 'limão cravo', 'limão taiti', 'açúcar', 'gelo', 'cachaça ou vodka'],
     garnish: 'Finalizada com cascas dos limões para mais aroma.',
+    method: [
+      'Use pedaços pequenos dos três limões, sem excesso da parte branca.',
+      'Macere com açúcar para misturar acidez e aroma.',
+      'Coloque bastante gelo para equilibrar a intensidade.',
+      'Complete com cachaça ou vodka e mexa bem.',
+    ],
     color: '#d7d947',
     photo: 'https://doseextraoficial.com.br/wp-content/uploads/2023/06/Caipirinha-de-tres-limoes.jpg',
   },
@@ -72,6 +90,12 @@ const drinks = [
     bestFor: 'é macia, cheirosa e ótima para quem prefere um drink frutado.',
     ingredients: ['gomos de mexerica', 'toque de limão', 'açúcar', 'gelo', 'cachaça ou vodka'],
     garnish: 'Finalizada com gomo fresco de mexerica.',
+    method: [
+      'Coloque os gomos de mexerica no copo com um toque de limão.',
+      'Macere com açúcar até soltar bastante suco.',
+      'Adicione gelo e complete com cachaça ou vodka.',
+      'Mexa bem para deixar a bebida perfumada e uniforme.',
+    ],
     color: '#f08a24',
     photo: 'https://receitacerta.blog.br/wp-content/uploads/2025/09/Capirinha-de-Tangerina-768x512.webp',
   },
@@ -87,6 +111,12 @@ const preferenceOptions = [
 const baseOptions = [
   { id: 'cachaca', label: 'Cachaça', note: 'mais brasileira, intensa e cheia de personalidade' },
   { id: 'vodka', label: 'Vodka', note: 'mais neutra, suave e fácil de beber' },
+]
+
+const aiModes = [
+  { id: 'leve', label: 'Quero leve', hint: 'mais fácil de beber' },
+  { id: 'equilibrado', label: 'Quero equilibrado', hint: 'meio termo certeiro' },
+  { id: 'marcante', label: 'Quero marcante', hint: 'mais presença no copo' },
 ]
 
 function pickRecommendation(preference, base, mood) {
@@ -118,6 +148,10 @@ function App() {
     [preference, base, mood],
   )
 
+  const selectedPreference = preferenceOptions.find((option) => option.id === preference)
+  const selectedMode = aiModes.find((option) => option.id === mood)
+  const baseLabel = base === 'cachaca' ? 'cachaça' : 'vodka'
+
   const filteredDrinks = drinks.filter((drink) =>
     `${drink.name} ${drink.fruit} ${drink.vibe}`.toLowerCase().includes(query.toLowerCase()),
   )
@@ -136,7 +170,7 @@ function App() {
         </a>
         <nav aria-label="Navegação principal">
           <a href="#menu">Opções</a>
-          <a href="#ia">Me ajude</a>
+          <a href="#ia">IA</a>
         </nav>
       </header>
 
@@ -154,7 +188,7 @@ function App() {
             </a>
             <a className="secondary-action" href="#ia">
               <Bot size={18} aria-hidden="true" />
-              Me ajude a escolher
+              IA recomenda
             </a>
           </div>
         </div>
@@ -182,8 +216,8 @@ function App() {
         </div>
         <div>
           <Sparkles size={20} aria-hidden="true" />
-          <strong>Não sabe qual pedir?</strong>
-          <span>responda rapidinho e receba uma sugestão</span>
+          <strong>IA da festa</strong>
+          <span>sugere o drink e mostra como fazer</span>
         </div>
       </section>
 
@@ -294,15 +328,23 @@ function App() {
 
       <section className="assistant-section" id="ia" aria-labelledby="assistant-title">
         <div className="section-heading">
-          <p className="eyebrow">Está em dúvida?</p>
-          <h2 id="assistant-title">Eu te ajudo a escolher</h2>
-          <p>Responda três coisas rápidas e veja qual caipirinha combina com você agora.</p>
+          <p className="eyebrow">IA da festa</p>
+          <h2 id="assistant-title">Descubra seu drink</h2>
+          <p>A IA cruza seu paladar, sua base preferida e a intensidade para sugerir um drink e o preparo.</p>
         </div>
 
         <div className="assistant-grid">
           <div className="selector-area">
+            <div className="ai-status">
+              <Bot size={20} aria-hidden="true" />
+              <div>
+                <strong>Analisando seu paladar</strong>
+                <span>{selectedPreference.label} + {baseLabel} + {selectedMode.hint}</span>
+              </div>
+            </div>
+
             <div className="control-group">
-              <span>O que você quer?</span>
+              <span>1. Qual é sua vontade?</span>
               <div className="chip-row">
                 {preferenceOptions.map((option) => (
                   <button
@@ -318,7 +360,7 @@ function App() {
             </div>
 
             <div className="control-group">
-              <span>Base do drink</span>
+              <span>2. Escolha a base</span>
               <div className="segmented">
                 {baseOptions.map((option) => (
                   <button
@@ -335,49 +377,56 @@ function App() {
             </div>
 
             <div className="control-group">
-              <span>Intensidade</span>
-              <div className="range-picks" role="group" aria-label="Intensidade do drink">
-                <button
-                  type="button"
-                  className={mood === 'leve' ? 'mood active' : 'mood'}
-                  onClick={() => setMood('leve')}
-                >
-                  Leve
-                </button>
-                <button
-                  type="button"
-                  className={mood === 'equilibrado' ? 'mood active' : 'mood'}
-                  onClick={() => setMood('equilibrado')}
-                >
-                  Equilibrado
-                </button>
-                <button
-                  type="button"
-                  className={mood === 'marcante' ? 'mood active' : 'mood'}
-                  onClick={() => setMood('marcante')}
-                >
-                  Marcante
-                </button>
+              <span>3. Como você quer o drink?</span>
+              <div className="ai-mode-grid" role="group" aria-label="Estilo do drink">
+                {aiModes.map((option) => (
+                  <button
+                    type="button"
+                    className={mood === option.id ? 'mood active' : 'mood'}
+                    onClick={() => setMood(option.id)}
+                    key={option.id}
+                  >
+                    <strong>{option.label}</strong>
+                    <small>{option.hint}</small>
+                  </button>
+                ))}
               </div>
             </div>
           </div>
 
-          <article className="recommendation" style={{ '--drink-color': recommendation.color }}>
+          <article className="recommendation ai-result" style={{ '--drink-color': recommendation.color }}>
             <div className="rec-image">
               <img src={recommendation.photo} alt={recommendation.name} />
             </div>
             <div className="rec-copy">
               <span className="ai-label">
-                <Bot size={16} aria-hidden="true" />
-                Sugestão
+                <Sparkles size={16} aria-hidden="true" />
+                Recomendação da IA
               </span>
               <h3>{recommendation.name}</h3>
               <p>
-                Peça com {base === 'cachaca' ? 'cachaça' : 'vodka'}: {recommendation.bestFor}
+                Minha sugestão: peça com <strong>{baseLabel}</strong>. Esse drink {recommendation.bestFor}
               </p>
+
+              <div className="ai-reason">
+                <strong>Por que combina?</strong>
+                <span>
+                  Você escolheu um perfil {selectedPreference.label.toLowerCase()} e um drink {selectedMode.hint}.
+                </span>
+              </div>
+
+              <div className="recipe-box">
+                <strong>Como fazer</strong>
+                <ol>
+                  {recommendation.method.map((step) => (
+                    <li key={step}>{step}</li>
+                  ))}
+                </ol>
+              </div>
+
               <button type="button" onClick={() => setFavorite(recommendation.id)}>
                 <Heart size={17} aria-hidden="true" />
-                Gostei dessa
+                Gostei dessa sugestão
               </button>
             </div>
           </article>
