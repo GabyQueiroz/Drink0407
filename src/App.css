@@ -75,7 +75,7 @@
   grid-template-columns: minmax(0, 1.02fr) minmax(300px, 0.98fr);
   gap: clamp(24px, 5vw, 64px);
   align-items: center;
-  padding: clamp(16px, 4vw, 44px) clamp(18px, 5vw, 72px) 28px;
+  padding: clamp(6px, 2.4vw, 28px) clamp(18px, 5vw, 72px) 28px;
 }
 
 .hero-copy {
@@ -100,10 +100,10 @@ p {
 
 h1 {
   max-width: 9ch;
-  margin-bottom: 18px;
+  margin-bottom: 30px;
   color: #102018;
   font-size: clamp(4rem, 13vw, 9.3rem);
-  line-height: 0.86;
+  line-height: 0.9;
   letter-spacing: 0;
 }
 
@@ -123,7 +123,7 @@ h3 {
 
 .hero-text {
   max-width: 580px;
-  margin-bottom: 26px;
+  margin-bottom: 24px;
   color: #405d48;
   font-size: clamp(1.06rem, 2.4vw, 1.34rem);
 }
@@ -772,8 +772,9 @@ footer span:first-child {
 @media (max-width: 560px) {
   h1 {
     max-width: 100%;
-    font-size: 3.2rem;
-    line-height: 0.94;
+    margin-bottom: 26px;
+    font-size: 3.05rem;
+    line-height: 0.98;
   }
 
   .topbar nav a {
@@ -781,7 +782,7 @@ footer span:first-child {
   }
 
   .hero-section {
-    padding-top: 12px;
+    padding-top: 2px;
   }
 
   .hero-actions a,
